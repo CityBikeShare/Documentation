@@ -7,6 +7,9 @@
 - Get all bikes currently rented -> http://localhost:8080/sources/bikerent
 - Get bike rent, identified by id -> http://localhost:8080/sources/bikerent/{id}
 
+- Get all users -> http://localhost:8080/sources/users
+- Get user by id -> http://localhost:8080/sources/users/{id}
+
 ### POST Requests
 
 - Login to an account -> http://localhost:8080/sources/loginUser?uname=username&passwd=password
