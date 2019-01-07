@@ -27,6 +27,8 @@
 
 - [Logit.io](https://logit.io/a/5a3f88fc-ec2f-491e-a479-10351343c1ab)
 
+- **Consul** http://159.122.177.235:30559/ui/dc1/services
+
 ---
 
 ### Osnovni docker ukazi
