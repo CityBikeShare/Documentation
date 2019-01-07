@@ -29,6 +29,13 @@
 
 ---
 
+### Osnovni docker ukazi
+
+- **PostgreSQL** -> docker run -d --name cityBikeShare -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=cityBikeShare -p 5433:5432 postgres:latest
+- **Consul** -> docker run -d -p 8500:8500 --name test consul agent -server -client 0.0.0.0 -ui -bootstrap-expect 1 -bind 127.0.0.1
+
+---
+
 ### BikeCatalogService
     GET
         - localhost:8082/sources/bikes/                    ### Get all bikes

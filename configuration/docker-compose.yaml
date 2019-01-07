@@ -1,0 +1,44 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cityBikeShare
+
+  consul:
+    image: consul
+    ports:
+      - 8500:8500
+
+  usermanagmentservice:
+    image: citybikeshare/usermanagmentservice
+    ports:
+      - 8080:8080
+    environment:
+      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://postgres:5432/cityBikeShare
+    depends_on:
+      - postgres
+      - consul
+
+  bikecatalogservice:
+    image: citybikeshare/bikecatalogservice
+    ports:
+      - 8082:8082
+    environment:
+      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://postgres:5432/cityBikeShare
+    depends_on:
+      - postgres
+      - consul
+
+  bikerentservice:
+    image: citybikeshare/bikerentservice
+    ports:
+      - 8081:8081
+    environment:
+      KUMULUZEE_DATASOURCES0_CONNECTIONURL: jdbc:postgresql://postgres:5432/cityBikeShare
+    depends_on:
+      - postgres
+      - consul
