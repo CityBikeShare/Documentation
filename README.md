@@ -1,4 +1,33 @@
-## Documentation
+# Documentation
+
+## Predlagane mikrostoritve
+
+1. Katalog razpoložljivih koles
+    > omogoča prikazovanje koles, dodajanje novih koles za izposojo, posodabljanje že obstoječih in brisanje.
+
+2. Izposoja in vrnitev kolesa
+    > omogoča izposojo, vrnitev in prekinitev izposoje. 
+
+3. Upravljanje z uporabniki
+    > omogoča registracijo, prijavo, posodabljanje in izbris uporabniškega računa, ki se uporablja za objavo in izposojo koles.
+
+4. Plačevanje
+    > pregled nad izposojo, računanje dolga glede na število dni izposoje, plačevanje
+
+
+## Koristni linki
+
+- [GitHub](https://github.com/orgs/CityBikeShare/dashboard)
+
+- [Travis](https://travis-ci.org/CityBikeShare)
+
+- [DockerHub](https://hub.docker.com/u/citybikeshare)
+
+- [Kubernetes](https://console.bluemix.net/containers-kubernetes/clusters/77a9d8f1d0d04857a4fa680904fca098/overview?region=ibm:yp:eu-de&resourceGroup=)
+
+- [Logit.io](https://logit.io/a/5a3f88fc-ec2f-491e-a479-10351343c1ab)
+
+---
 
 ### BikeCatalogService
     GET
