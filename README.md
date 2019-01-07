@@ -72,3 +72,9 @@
 
     DELETE
         - localhost:8080/sources/users/delete/{id}          ### Delete user by id
+
+### Poizvedbe po dnevnikih
+    - marker.parents.name:METHOD            # Klici metod
+    - contextMap.method:convertPrice        # Klic določene metode
+    - contextMap.method:applicationName     # Klic določene storitve
+    - level:error                           # Prikaz error sporočil
