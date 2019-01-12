@@ -35,55 +35,56 @@
 
 - **PostgreSQL** -> docker run -d --name cityBikeShare -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=cityBikeShare -p 5433:5432 postgres:latest
 - **Consul** -> docker run -d -p 8500:8500 --name test consul agent -server -client 0.0.0.0 -ui -bootstrap-expect 1 -bind 127.0.0.1
-
+- **Etcd** -> docker run -d -p 2379:2379 --name etcd --volume=/tmp/etcd-data:/etcd-data quay.io/coreos/etcd:latest /usr/local/bin/etcd --name my-etcd-1 --data-dir /etcd-data --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://0.0.0.0:2379 --listen-peer-urls http://0.0.0.0:2380 --initial-advertise-peer-urls http://0.0.0.0:2380 --initial-cluster my-etcd-1=http://0.0.0.0:2380 --initial-cluster-token my-etcd-token --initial-cluster-state new --auto-compaction-retention 1 -cors="*"
 ---
 
 ### BikeCatalogService
     GET
-        - localhost:8082/sources/bikes/                    ### Get all bikes
-        - localhost:8082/sources/bikes/bike/{id}           ### Get bike by id
-        - localhost:8082/sources/bikes/region/{region}     ### Get bikes in given region
-        - localhost:8082/sources/bikes/user/{id}           ### Get bikes owned by user with given id
-
+        - http://159.122.177.235:30000/sources/bikes/                    ### Get all bikes
+        - http://159.122.177.235:30000/sources/bikes/bike/{id}           ### Get bike by id
+        - http://159.122.177.235:30000/sources/bikes/region/{region}     ### Get bikes in given region
+        - http://159.122.177.235:30000/sources/bikes/user/{id}           ### Get bikes owned by user with given id
+        - http://159.122.177.235:30000/sources/bikes/convert/            ### Get bike price in other currency [@QueryParam bikeid, currency]
+      
     PUT
-        - localhost:8082/sources/bikes/insertNew           ### Inserts new bike in the catalog [@RequestBody Bikes]
-        - localhost:8082/sources/bikes/update/{id}         ### Updated bike with given id to [@RequestBody Bikes]
+        - http://159.122.177.235:30000/sources/bikes/insertNew           ### Inserts new bike in the catalog [@RequestBody Bikes]
+        - http://159.122.177.235:30000/sources/bikes/update/{id}         ### Updated bike with given id to [@RequestBody Bikes]
 
     DELETE
-        - localhost:8082/sources/bikes/delete/{id}         ### Deletes a bike from the catalog
+        - http://159.122.177.235:30000/sources/bikes/delete/{id}         ### Deletes a bike from the catalog
         
 ### BikeRentService
     GET
-        - localhost:8081/sources/bikerent/                      ### Get all bikes ever rented
-        - localhost:8081/sources/bikerent/{id}                  ### Get bike rented by id
+        - http://159.122.177.235:30001/sources/bikerent/                      ### Get all bikes ever rented
+        - http://159.122.177.235:30001/sources/bikerent/{id}                  ### Get bike rented by id
 
     POST
-        - localhost:8081/sources/bikerent/rent                  ### Rent a bike [@QueryParam bikeId, @QueryParam userid]
+        - http://159.122.177.235:30001/sources/bikerent/rent                  ### Rent a bike [@QueryParam bikeId, @QueryParam userid]
 
     PUT
-        - localhost:8081/sources/bikerent/return/{bikeid}       ### Return rented bike with given id
+        - http://159.122.177.235:30001/sources/bikerent/return/{bikeid}       ### Return rented bike with given id
         
     DELETE
-        - localhost:8081/sources/bikerent/{id}                  ### Delete bike record with bikeRent id 
+        - http://159.122.177.235:30001/sources/bikerent/{id}                  ### Delete bike record with bikeRent id 
 
 ### UserManagmentService
     GET
-        - localhost:8080/sources/users                      ### Get all users
-        - localhost:8080/sources/users/{id}                 ### Get user by id
-        - localhost:8080/sources/users/region/{region}      ### Get users living in given region
+        - http://159.122.177.235:30002/sources/users                      ### Get all users
+        - http://159.122.177.235:30002/sources/users/{id}                 ### Get user by id
+        - http://159.122.177.235:30002/sources/users/region/{region}      ### Get users living in given region
         
     PUT
-        - localhost:8080/sources/users/registerUser         ### User registration [@RequestBody Users]
-        - localhost:8080/sources/users/update/{id}          ### Update a user by id with [@RequestBody Users]
+        - http://159.122.177.235:30002/sources/users/registerUser         ### User registration [@RequestBody Users]
+        - http://159.122.177.235:30002/sources/users/update/{id}          ### Update a user by id with [@RequestBody Users]
 
     POST
-        - localhost:8080/sources/users/loginUser            ### User login [@QueryParam uname, @QueryParam passwd]
+        - http://159.122.177.235:30002/sources/users/loginUser            ### User login [@QueryParam uname, @QueryParam passwd]
 
     DELETE
-        - localhost:8080/sources/users/delete/{id}          ### Delete user by id
+        - http://159.122.177.235:30002/sources/users/delete/{id}          ### Delete user by id
 
 ### Poizvedbe po dnevnikih
-    - marker.parents.name:METHOD            # Klici metod
-    - contextMap.method:convertPrice        # Klic določene metode
-    - contextMap.method:applicationName     # Klic določene storitve
-    - level:error                           # Prikaz error sporočil
+    - marker.parents.name:METHOD                        # Klici metod
+    - contextMap.method:getAllBikes                     # Klic določene metode
+    - contextMap.applicationName:bikecatalogservice     # Klic določene storitve
+    - level:error                                       # Prikaz error sporočil
